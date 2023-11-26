@@ -1,12 +1,16 @@
 package com.example.tweteroo.services;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
+import org.springframework.stereotype.Service;
 import com.example.tweteroo.dto.TweetDTO;
 import com.example.tweteroo.models.Tweet;
 import com.example.tweteroo.models.User;
 import com.example.tweteroo.repositorys.TweetRepository;
 import com.example.tweteroo.repositorys.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class TweetService {
@@ -20,8 +24,15 @@ public class TweetService {
 
     public void create(TweetDTO tweetData) {
         User user = userRepository.findByUsername(tweetData.username());
-        Tweet tweet = new Tweet(tweetData.text(), user);
-        tweetRepository.save(tweet);
+        tweetRepository.save(new Tweet(tweetData, user.getAvatar()));
     }
 
+    public List<Tweet> findByUsername(String username) {
+        return tweetRepository.findByUsername(username);
+    }
+
+    public List<Tweet> getTweets() {
+        // Ordena por ID em ordem decrescente
+        return tweetRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
 }
