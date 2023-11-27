@@ -9,8 +9,6 @@ import com.example.tweteroo.models.User;
 import com.example.tweteroo.repositorys.TweetRepository;
 import com.example.tweteroo.repositorys.UserRepository;
 
-import org.springframework.data.domain.Sort;
-
 @Service
 public class TweetService {
     private final TweetRepository tweetRepository;
@@ -32,6 +30,6 @@ public class TweetService {
 
     public List<Tweet> getTweets() {
         // * */ Ordena por ID em ordem decrescente
-        return tweetRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return tweetRepository.findTop5();
     }
 }
