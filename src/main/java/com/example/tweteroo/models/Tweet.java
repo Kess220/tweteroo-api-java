@@ -1,5 +1,7 @@
 package com.example.tweteroo.models;
 
+import org.hibernate.validator.constraints.URL;
+
 import com.example.tweteroo.dto.TweetDTO;
 
 import jakarta.persistence.Column;
@@ -35,8 +37,9 @@ public class Tweet {
     @NotNull
     private String username;
 
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     @NotNull
+    @URL
     private String avatar;
 
 }

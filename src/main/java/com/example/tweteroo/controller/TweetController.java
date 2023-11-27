@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.tweteroo.dto.TweetDTO;
 import com.example.tweteroo.models.Tweet;
 import com.example.tweteroo.services.TweetService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -26,7 +29,7 @@ public class TweetController {
     }
 
     @PostMapping
-    public void createTweet(@RequestBody TweetDTO tweetData) {
+    public void createTweet(@RequestBody @Valid TweetDTO tweetData) {
         tweetService.create(tweetData);
     }
 
